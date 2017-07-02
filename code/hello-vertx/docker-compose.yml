@@ -1,0 +1,14 @@
+version: "3"
+services:
+  mongo:
+    image: mongo:3.4.5
+    ports:
+      - "27017:27017"
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    links:
+      - "mongo:mongo"
+    command: ["./wait.sh", "--", "java", "-jar", "/var/app.jar"]
